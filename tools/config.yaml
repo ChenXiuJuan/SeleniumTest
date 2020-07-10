@@ -1,0 +1,35 @@
+#第一行是运行的环境
+run: 'QA'
+# QA_API DEV_API
+updateActionAPI: 'QA_API'
+version: 2.2.1
+hosts:
+  DEV:
+    # DEV域名配置
+    FC_PASSPORT: 'http://dev-gateway.worldfarm.com/world-passport'
+    FC_USER: 'http://dev-gateway.worldfarm.com/world-user'
+    FC_BEE: 'http://dev-gateway.worldfarm.com/fc-bee'
+
+  DEV_API:
+    FC_PASSPORT: 'http://dev-passport.worldfarm.com'
+    FC_USER: 'http://dev-user.worldfarm.com'
+    FC_BEE: 'http://dev-gateway.worldfarm.com/fc-bee'
+
+  QA:
+    # QA域名配置
+    FC_PASSPORT: 'http://qa-gateway.worldfarm.com/world-passport'
+    FC_USER: 'http://qa-gateway.worldfarm.com/world-user'
+    FC_BEE: 'http://qa-gateway.worldfarm.com/fc-bee'
+
+  QA_API:
+    FC_PASSPORT: 'http://qa-passport.worldfarm.com'
+    FC_USER: 'http://qa-user.worldfarm.com'
+    FC_BEE: 'http://qa-gateway.worldfarm.com/fc-bee'
+
+database:
+  QA:
+    host_ip: '120.79.59.233'
+  DEV:
+    host_ip: '192.168.62.244'
+
+dataBaseURI: "mysql+pymysql://ms:ms@test_2019@39.104.28.40:3306/swagger-sync"
