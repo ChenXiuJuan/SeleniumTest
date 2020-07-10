@@ -1,5 +1,5 @@
-from tools.DataBaseOperate import DataBaseOperate
-from tools.Config import Config, Log
+from database.DataBaseOperate import DataBaseOperate
+from config.Config import Config, Log
 
 host_ip = Config('config').data['database'][Config('config').data['run']]['host_ip']
 

@@ -1,7 +1,7 @@
 from selenium import webdriver
 import time
-from tools.Config import Log
-from sql.FarmMap import FarmMap
+from config.Config import Log
+from sql.FarmMapSql import FarmMap
 from tools.Tool import Tool
 
 farm = FarmMap()

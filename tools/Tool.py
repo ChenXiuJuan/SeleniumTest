@@ -1,4 +1,4 @@
-from tools.Config import Log
+from config.Config import Log
 
 
 class Tool(object):
