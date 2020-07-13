@@ -71,3 +71,20 @@ class FarmMap(object):
                    AND status <> 3
                    AND to_days(now()) = to_days(create_time);"""
         return self.db.operate(host_ip, sql)
+
+    def query_num_promotion_staff(self):
+        """
+        推广人员数量
+        :return:
+        """
+        sql = """SELECT COUNT(*) # 推广人员数量
+                 FROM `fc-bee`.t_bee_friend AS tbf
+                          INNER JOIN `fc-bee`.t_user_role AS tur ON tbf.user_id = tur.user_id
+                     AND tur.is_delete = 0
+                     AND tur.role_code IN (1006)
+                 # , 1004, 1005
+                 WHERE
+                 #       tbf.lat IS NOT NULL AND # 推广人员位置
+                     tbf.is_delete = 0
+                   AND tbf.status <> 3;"""
+        return self.db.operate(host_ip, sql)

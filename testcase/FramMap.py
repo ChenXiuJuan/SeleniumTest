@@ -62,21 +62,29 @@ class Farmmap(object):
         #
         # else:
         #     raise Exception('-----------------外部蜂场累计总个数检验未通过，请核对！-------------------')
-        self.log.info("--------------------开始执行蜂友数量统计case----------------------")
-        friend = driver.find_element_by_xpath('/html/body/div/div/section/section/main/div[2]/div[1]/div/p[2]/span').text
-        sql_friend_have_user_id = (self.farm.query_num_bee_friend_have_user_id())[0].get('有手机号的蜂友数量')
-        sql_friend_not_user_id = (self.farm.query_num_bee_friend_not_user_id())[0].get('无手机号的蜂友数量')
-        sql_friend_all = str(self.tool.parse_int(sql_friend_have_user_id + sql_friend_not_user_id))
-        sql_friend_today = (self.farm.query_num_bee_friend_today())[0].get('今日新增蜂友')
-        sql_friend_today = self.tool.parse_int(sql_friend_today)
-        if sql_friend_all in friend:
-            self.log.info("--------------------累计蜂友数量统计检验通过----------------------")
-            if sql_friend_today in friend:
-                self.log.info("--------------------今日新增蜂友数量统计检验通过----------------------")
-            else:
-                raise Exception("-----------------今日新增蜂友数量统计检验未通过，请核对！-------------------")
+        # self.log.info("--------------------开始执行蜂友数量统计case----------------------")
+        # friend = driver.find_element_by_xpath('/html/body/div/div/section/section/main/div[2]/div[1]/div/p[2]/span').text
+        # sql_friend_have_user_id = (self.farm.query_num_bee_friend_have_user_id())[0].get('有手机号的蜂友数量')
+        # sql_friend_not_user_id = (self.farm.query_num_bee_friend_not_user_id())[0].get('无手机号的蜂友数量')
+        # sql_friend_all = str(self.tool.parse_int(sql_friend_have_user_id + sql_friend_not_user_id))
+        # sql_friend_today = (self.farm.query_num_bee_friend_today())[0].get('今日新增蜂友')
+        # sql_friend_today = self.tool.parse_int(sql_friend_today)
+        # if sql_friend_all in friend:
+        #     self.log.info("--------------------累计蜂友数量统计检验通过----------------------")
+        #     if sql_friend_today in friend:
+        #         self.log.info("--------------------今日新增蜂友数量统计检验通过----------------------")
+        #     else:
+        #         raise Exception("-----------------今日新增蜂友数量统计检验未通过，请核对！-------------------")
+        # else:
+        #     raise Exception("-----------------累计蜂友数量统计检验未通过，请核对！-------------------")
+        self.log.info("--------------------开始执行推广人员数量统计case----------------------")
+        promotion_staff = driver.find_element_by_xpath(
+            '/html/body/div/div/section/section/main/div[2]/div[1]/div/p[3]/span').text
+        sql_promotion_staff = str(self.tool.parse_int((self.farm.query_num_promotion_staff())[0].get('COUNT(*)')))
+        if sql_promotion_staff in promotion_staff:
+            self.log.info("--------------------推广人员数量统计检验通过----------------------")
         else:
-            raise Exception("-----------------累计蜂友数量统计检验未通过，请核对！-------------------")
+            raise Exception("-----------------推广人员数量统计检验未通过，请核对！-------------------")
 
         driver.close()
 
