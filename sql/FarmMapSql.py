@@ -32,3 +32,42 @@ class FarmMap(object):
                    AND lat IS NOT NULL
                    AND date_format(create_time, '%Y-%m-%d') = date_format(now(), '%Y-%m-%d');"""
         return self.db.operate(host_ip, sql)
+
+    def query_num_bee_friend_have_user_id(self):
+        """
+        累计蜂友总数，开通账号的蜂友只统计 蜂友\养蜂总监\老师, 所有未开通账号的蜂友(不区分账号来源，区分账号是否注销)
+        有手机号的蜂友数量
+        :return:
+        """
+        sql = """SELECT count(DISTINCT tbf.user_id) AS '有手机号的蜂友数量'
+                 FROM `fc-bee`.t_bee_friend tbf
+                    LEFT JOIN `fc-bee`.t_user_role AS tur ON tur.user_id = tbf.user_id AND tur.is_delete = 0
+                 WHERE tbf.is_delete = 0
+                    AND tbf.status <> 3
+                    AND tbf.user_id IS NOT NULL
+                    AND (tur.role_code IS NULL OR tur.role_code IN (1000, 1002, 1003));"""
+        return self.db.operate(host_ip, sql)
+
+    def query_num_bee_friend_not_user_id(self):
+        """
+        累计蜂友总数，开通账号的蜂友只统计 蜂友\养蜂总监\老师, 所有未开通账号的蜂友(不区分账号来源，区分账号是否注销)
+        无手机号的蜂友数量
+        :return:
+        """
+        sql = """SELECT count(1) AS '无手机号的蜂友数量'
+                 FROM `fc-bee`.t_bee_friend
+                 WHERE is_delete = 0
+                   AND user_id IS NULL;"""
+        return self.db.operate(host_ip, sql)
+
+    def query_num_bee_friend_today(self):
+        """
+        今日新增蜂友（不包含注销的，有手机号的蜂友+无手机号的蜂友）
+        :return:
+        """
+        sql = """SELECT count(1) AS '今日新增蜂友'
+                 FROM `fc-bee`.t_bee_friend
+                 WHERE is_delete = 0
+                   AND status <> 3
+                   AND to_days(now()) = to_days(create_time);"""
+        return self.db.operate(host_ip, sql)
