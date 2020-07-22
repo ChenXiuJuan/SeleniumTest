@@ -28,7 +28,7 @@ hosts:
 
 database:
   QA:
-    host_ip: '120.79.59.233'
+    host_ip: '192.168.62.211'
   DEV:
     host_ip: '192.168.62.244'
 
