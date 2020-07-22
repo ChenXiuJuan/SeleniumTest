@@ -10,15 +10,15 @@ class Farmmap(object):
     farm = FarmMap()
     log = Log("开始执行").logger
     tool = Tool()
-    opt = FirefoxOptions()
-    opt.headless = True        # 设置无界面浏览器模式
+    # opt = FirefoxOptions()
+    # opt.headless = True        # 设置无界面浏览器模式
 
     def farmmap(self):
         self.log.info("----------------------开始执行登录case------------------------------")
         # 无界面浏览器
-        driver = Firefox(options=self.opt)
+        # driver = Firefox(options=self.opt)
         # 有界面浏览器
-        # driver = webdriver.Firefox(executable_path='C:\Program Files\Mozilla Firefox\geckodriver')
+        driver = webdriver.Firefox(executable_path='C:\Program Files\Mozilla Firefox\geckodriver')
         driver.get("http://qa-flowers.zhuihuazu.com/login?from=%2Fdashboard%2Fmap")
         time.sleep(5)
         # 切换到手机号登录
@@ -85,6 +85,35 @@ class Farmmap(object):
         #     self.log.info("--------------------推广人员数量统计检验通过----------------------")
         # else:
         #     raise Exception("-----------------推广人员数量统计检验未通过，请核对！-------------------")
+        # self.log.info("--------------------开始执行自有蜂场数量统计case----------------------")
+        # nectar_num = driver.find_element_by_xpath(
+        #     '/html/body/div/div/section/section/main/div/div[1]/div/p[4]/span').text
+        # sql_num_nectar = str(self.tool.parse_int((self.farm.query_num_nectar())[0].get('自有蜂场总数')))
+        # sql_num_nectar_settled = str(self.tool.parse_int((self.farm.query_num_nectar_settled())[0].get('自有入驻蜂场数')))
+        # if sql_num_nectar in nectar_num:
+        #     self.log.info("--------------------自有蜂场总数统计检验通过----------------------")
+        #     if sql_num_nectar_settled in nectar_num:
+        #         self.log.info("--------------------自有已入驻蜂场总数统计检验通过----------------------")
+        #     else:
+        #         raise Exception("-----------------自有已入驻蜂场总数统计检验未通过，请核对！-------------------")
+        # else:
+        #     raise Exception("-----------------自有蜂场总数统计检验未通过，请核对！-------------------")
+        # self.log.info("--------------------开始执行养蜂老师数量统计case----------------------")
+        # beekeeper_teacher = driver.find_element_by_xpath(
+        #     '/html/body/div/div/section/section/main/div/div[1]/div/p[5]/span').text
+        # sql_beekeeper_teacher = str(self.tool.parse_int((self.farm.query_num_beekeeper_teacher())[0].get('自有养蜂人')))
+        # if sql_beekeeper_teacher in beekeeper_teacher:
+        #     self.log.info("-------------------养蜂老师数量统计检验通过----------------------")
+        # else:
+        #     raise Exception("-----------------养蜂老师数量统计检验未通过，请核对！-------------------")
+        self.log.info("--------------------开始执行展示地图所有数据case----------------------")
+        personnel_display = driver.find_element_by_xpath('//*[@id="staffMap"]/div[1]/div/div[1]').click()
+        select_teacher = driver.find_element_by_xpath('//*[@id="staffMap"]/div[1]/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/span[2]/span').click()
+        select_promote = driver.find_element_by_xpath('//*[@id="staffMap"]/div[1]/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/span[2]/span').click()
+        apiary_display = driver.find_element_by_xpath('//*[@id="staffMap"]/div[2]/div/div[1]').click()
+        to_be_settled_select = driver.find_element_by_xpath('//*[@id="staffMap"]/div[2]/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/span[3]/span').click()
+        settled_select = driver.find_element_by_xpath('//*[@id="staffMap"]/div[2]/div/div[2]/div/div/div/div/div/div[2]/div/div/div[3]/span[3]/span').click()
+        time.sleep(5)
 
         driver.close()
 
@@ -92,6 +121,4 @@ class Farmmap(object):
 if __name__ == '__main__':
     farmmap = Farmmap()
     farmmap.farmmap()
-
-
 
