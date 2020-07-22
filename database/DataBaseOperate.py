@@ -32,7 +32,7 @@ class DataBaseOperate(object):
             user, password, port = "qa", "vFLDbvhvxhR.4uK26fLa0lLnVS44S0", 3306
         elif host == "192.168.62.73":
             user, password, port = "root", "Knight01", 3306
-        elif host == "120.79.59.233":
+        elif host == "192.168.62.211":
             user, password, port = "farm", "WorldFarm", 3306
         elif host == "203.6.234.220":
             user, password, port = "xinheng", "v1LDwAUWzEgWM", 3306
