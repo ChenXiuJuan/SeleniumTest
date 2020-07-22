@@ -88,3 +88,39 @@ class FarmMap(object):
                      tbf.is_delete = 0
                    AND tbf.status <> 3;"""
         return self.db.operate(host_ip, sql)
+
+    def query_num_nectar(self):
+        """
+        自有蜂场总数（只统计待入驻/已完成的未删除的)
+        :return:
+        """
+        sql = """SELECT count(1) AS '自有蜂场总数'
+                 FROM `fc-bee`.t_nectar_source
+                 WHERE is_delete = 0;"""
+        return self.db.operate(host_ip, sql)
+
+    def query_num_nectar_settled(self):
+        """
+        自有入驻蜂场数（只统计已入驻的未删除的)
+        :return:
+        """
+        sql = """SELECT count(1) AS '自有入驻蜂场数'
+                 FROM `fc-bee`.t_nectar_source
+                 WHERE is_delete = 0
+                   AND status = 2;"""
+        return self.db.operate(host_ip, sql)
+
+    def query_num_beekeeper_teacher(self):
+        """
+        自有养蜂人（不包含注销的，有手机号的蜂友）
+        :return:
+        """
+        sql = """SELECT
+                        count(1) AS '自有养蜂人'
+                 FROM `fc-bee`.t_user_role tur
+                          LEFT JOIN `fc-bee`.t_bee_friend tbf ON tbf.user_id = tur.user_id
+                 WHERE tur.role_code IN (1002, 1003)
+                   AND tbf.status <> 3
+                   AND tbf.is_delete = 0
+                   AND tur.is_delete = 0;"""
+        return self.db.operate(host_ip, sql)
