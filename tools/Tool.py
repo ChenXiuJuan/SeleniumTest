@@ -23,6 +23,21 @@ class Tool(object):
                 sumstr = one_str + sumstr
         return sumstr
 
+    @staticmethod
+    def replace(value):
+        """
+        将前端默认填充的“--”转换为None
+        :param value:需要转换的字符
+        :return:
+        """
+        value_split = str(value).split('：')
+        value_split_1 = value_split[1]
+        if value_split_1 == '--':
+            value = None
+        else:
+            value = value_split_1
+        return value
+
 
 
 
