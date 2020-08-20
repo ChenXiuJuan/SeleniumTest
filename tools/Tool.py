@@ -39,6 +39,12 @@ class Tool(object):
         return value
 
 
+def get_mouse_pos(canvas, event):
+    rect = canvas.getBoundingClientRect()
+    x = event.clientX - rect.left * (canvas.width / rect.width)
+    y = event.clientY - rect.top * (canvas.height / rect.height)
+    print("x:"+x+",y:"+y)
+
 
 
 
