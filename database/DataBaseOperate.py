@@ -20,24 +20,24 @@ class DataBaseOperate(object):
     def operate(self, host, sql):
         if host == "192.168.62.244":
             user, password, port = "farm", "HEFAWW", 3306
-        elif host == "39.104.65.76":
-            user, password, port = "qa", "eYKvb5LXczUh7285UJt2T8070NkP", 3306
+        # elif host == "39.104.65.76":
+        #     user, password, port = "qa", "eYKvb5LXczUh7285UJt2T8070NkP", 3306
         # elif host == "132.232.47.119":
         #     user, password, port = "ms", "MiaoShu@2018", 3306
-        elif host == "39.104.28.40":
-            user, password, port = "ms", "ms@test_2019", 3306
-        elif host == "161.117.1.134":
-            user, password, port = "root", "jj8ePh5ZHnb3dmtGaPl2", 3306
-        elif host == "47.88.222.252":
-            user, password, port = "qa", "vFLDbvhvxhR.4uK26fLa0lLnVS44S0", 3306
-        elif host == "192.168.62.73":
-            user, password, port = "root", "Knight01", 3306
+        # elif host == "39.104.28.40":
+        #     user, password, port = "ms", "ms@test_2019", 3306
+        # elif host == "161.117.1.134":
+        #     user, password, port = "root", "jj8ePh5ZHnb3dmtGaPl2", 3306
+        # elif host == "47.88.222.252":
+        #     user, password, port = "qa", "vFLDbvhvxhR.4uK26fLa0lLnVS44S0", 3306
+        # elif host == "192.168.62.73":
+        #     user, password, port = "root", "Knight01", 3306
         elif host == "192.168.62.211":
             user, password, port = "farm", "WorldFarm", 3306
-        elif host == "203.6.234.220":
-            user, password, port = "xinheng", "v1LDwAUWzEgWM", 3306
-        elif host == "47.74.225.79":
-            user, password, port = "qa", "vFLDbvhvxhR.4uK26fLa0lLnVS44S0", 3306
+        # elif host == "203.6.234.220":
+        #     user, password, port = "xinheng", "v1LDwAUWzEgWM", 3306
+        # elif host == "47.74.225.79":
+        #     user, password, port = "qa", "vFLDbvhvxhR.4uK26fLa0lLnVS44S0", 3306
         else:
             raise Exception("IP域名错误")
 
