@@ -179,19 +179,26 @@ class FarmMap(object):
                     AND a.swarm_id = '%s';""" %swarm_id
         return self.db.operate(host_ip, sql)
 
+    def query_swarm(self, swarm_name, address, expect_hive_num, create_time):
+        """
+        通过指定特殊字段值查询是否存在蜂场数据
+        :param swarm_name: 蜂场名称
+        :param address: 蜂场详细地址
+        :param expect_hive_num: 预计投放箱数
+        :param create_time: 创建时间
+        :return:
+        """
+        sql = """SELECT
+                    * 
+                FROM
+                    `fc-bee`.t_nectar_source
+                WHERE
+                    `name` = '%s' 
+                    AND `address` = '%s' 
+                    AND `expect_hive_num` = '%s'
+                    AND `create_time` LIKE '%s%%%%';""" %(swarm_name, address, expect_hive_num, create_time)
+        return self.db.operate(host_ip, sql)
+
     class Bee(object):
         L = Log("ConfigInformationSql")
         db = DataBaseOperate()
-
-        def query_swarm_count(self):
-            """
-            查询外部蜂场数量
-            :return:
-            """
-            sql = """SELECT
-                            Count( * ) 
-                        FROM
-                            `fc-bee`.t_swarm_info si 
-                        WHERE
-                            si.is_delete = 0;"""
-            return self.db.operate(host_ip, sql)

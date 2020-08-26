@@ -1,3 +1,4 @@
+from selenium.webdriver import ActionChains
 from config.Config import Log
 
 
@@ -38,12 +39,42 @@ class Tool(object):
             value = value_split_1
         return value
 
+    @staticmethod
+    def get_point(driver):
+        """
+        随机点击canvas画布，知道点到元素点
+        :param driver: 驱动
+        :return:
+        """
+        canvas = driver.find_element_by_xpath('//*[@id="staffMap"]/div[5]/div/div[1]/canvas[1]')
+        canvas_style = driver.find_element_by_xpath(
+            '//*[@id="staffMap"]/div[5]/div/div[1]/canvas[1]').get_attribute('style')
+        canvas_split = canvas_style.split(';')
+        height = ((canvas_split[2].split(':'))[1].split('px'))[0]
+        width = ((canvas_split[3].split(':'))[1].split('px'))[0]
+        hw_split = [{'height': int(height) / 2, 'width': int(width) / 2}, {'height': int(height), 'width': int(width)},
+                    {'height': int(height), 'width': int(width) / 2}, {'height': int(height) / 2, 'width': int(width)}]
+        for i in range(len(hw_split)):
+            height = hw_split[i].get('height')
+            width = hw_split[i].get('width')
+            try:
+                if driver.find_element_by_xpath('//*[@id="staffMap"]/div[5]/div/div[2]/div/div/div/div'):
+                    print('------------------------已定位到canvas上的数据------------------------')
+                    break
+            except Exception as e:
+                print('---------------循环点击暂未点击到元素---------------', e)
+            finally:
+                for x in range(int(height)):
+                    for y in range(int(width)):
+                        action_chains = ActionChains(driver)
+                        action_chains.move_to_element(canvas)
+                        action_chains.move_by_offset(x, y).click().perform()
+                        y = y + 1
+                        break
+                    x = x + 1
+                    break
 
-def get_mouse_pos(canvas, event):
-    rect = canvas.getBoundingClientRect()
-    x = event.clientX - rect.left * (canvas.width / rect.width)
-    y = event.clientY - rect.top * (canvas.height / rect.height)
-    print("x:"+x+",y:"+y)
+
 
 
 
